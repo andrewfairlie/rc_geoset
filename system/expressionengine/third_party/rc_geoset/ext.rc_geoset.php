@@ -94,30 +94,32 @@
   		
   		
 		function change_language(){
-        // Grab the current country from CloudFlare
-  		  $currentRegion = $_SERVER['HTTP_CF_IPCOUNTRY'];
-  		  
-  		  // We're going to construct an array with countrys as the key and the language as the value. The dataset is the extension's settings
-  		  $languageSettings = array();
-
-        // Find all of Publisher's languages
-        $languages = ee()->publisher_model->get_languages('short_name', TRUE);
-
-        // Find the settings for that language and split the piped string...
-  		  foreach($languages as $language){
-  		    $pipedString = $this->settings[$language['short_name']];
-          $splitString = explode('|',$pipedString);
-          
-          // For each country in the piped string add it as a new index in the languageSettings array
-          foreach($splitString as $country) {
-            $languageSettings[$country] = $language['id']; // we use the ID because Publisher's set_language wants this
-          }
-  		  }
-
   		  // Check if we've already done the language change
   		  // for future reference, cf_set means "cloudflare language has been set"
   		  if(ee()->input->cookie('cf_set')!=1){
-  		  
+    		  
+          // Grab the current country from CloudFlare
+          $currentRegion = $_SERVER['HTTP_CF_IPCOUNTRY'];
+          
+          // We're going to construct an array with countrys as the key and the language as the value. The dataset is the extension's settings
+          $languageSettings = array();
+
+          // Find all of Publisher's languages
+          $languages = ee()->publisher_model->get_languages('short_name', TRUE);
+
+          // Find the settings for that language and split the piped string...
+          foreach($languages as $language){
+            $pipedString = $this->settings[$language['short_name']];
+            $splitString = explode('|',$pipedString);
+            
+            // For each country in the piped string add it as a new index in the languageSettings array
+            foreach($splitString as $country) {
+              $languageSettings[$country] = $language['id']; // we use the ID because Publisher's set_language wants this
+            }
+          }
+
+
+
   		    // We've about to change the language, before we do we just acknowledge that so we don't process this again and get in a redirect loop
     		  ee()->input->set_cookie('cf_set',"1",(3600*24)*30);
   		  
