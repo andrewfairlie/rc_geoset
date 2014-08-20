@@ -126,26 +126,6 @@
   		    }
   		  }
   		  
-  		  
-  		  
-  		  
-  		  //ee()->publisher_session->set_language(2);
-  		  
-  		  
-  		  
-  		  
-  		        //$this->ee->input->set_cookie('publisher_site_language', '2');
-  		  
-        //ee()->extensions->call('publisher_set_language', $this, 2);
-    
-        
-        //ee()->publisher_set_language(2);
-  		  
-  		  // If we have a preferred language set for this region change the language to that
-  		  //if(array_key_exists($currentRegion,$this->settings[regions])){
-  		    
-    		  //ee()->publisher_set_language($this->settings[regions]);
-  		 // }
 		}
 				
 
